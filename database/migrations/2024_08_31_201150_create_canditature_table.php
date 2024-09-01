@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
 
 class CreateCanditatureTable extends Migration {
 
@@ -14,6 +16,8 @@ class CreateCanditatureTable extends Migration {
 			$table->bigInteger('id_anonce')->unsigned()->nullable();
 			$table->string('message', 500)->nullable();
 			$table->datetime('date_candidature')->nullable();
+			$table->boolean('active')->default(true);
+            $table->integer('updated_by')->unsigned()->nullable();
 		});
 	}
 

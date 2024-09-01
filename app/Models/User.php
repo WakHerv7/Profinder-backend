@@ -14,8 +14,8 @@ class User extends Authenticatable
 
     protected $table = 'users';
     public $timestamps = true;
-    protected $fillable = array('nom', 'prenom', 'email', 'password', 'role', 'ville');
-    protected $visible = array('nom', 'prenom', 'email', 'password', 'role', 'ville');
+    protected $fillable = array('nom', 'prenom', 'email', 'password', 'ville','phone','updated_by','active');
+    // protected $visible = array('nom', 'prenom', 'email', 'password', 'ville','phone,');
 
     public function anonces()
     {
@@ -32,24 +32,28 @@ class User extends Authenticatable
         return $this->hasMany('Canditature');
     }
     public function sentMessages()
-{
-    return $this->hasMany('Message'::class, 'sender_id');
-}
+    {
+        return $this->hasMany('Message'::class, 'sender_id');
+    }
 
-public function receivedMessages()
-{
-    return $this->hasMany('Message'::class, 'receiver_id');
-}
+    public function receivedMessages()
+    {
+        return $this->hasMany('Message'::class, 'receiver_id');
+    }
 
-public function servicesProvided()
-{
-    return $this->hasMany('Service'::class, 'provider_id');
-}
+    public function servicesProvided()
+    {
+        return $this->hasMany('Service'::class, 'provider_id');
+    }
 
-public function servicesReceived()
-{
-    return $this->hasMany('Service'::class, 'user_id');
-}
+    public function servicesReceived()
+    {
+        return $this->hasMany('Service'::class, 'user_id');
+    }
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role','user_role','id_user', 'id_role');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

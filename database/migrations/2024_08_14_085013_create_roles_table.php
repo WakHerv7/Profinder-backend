@@ -4,17 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrestationTable extends Migration {
+
+class CreateRolesTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('prestation', function(Blueprint $table) {
+		Schema::create('roles', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->string('titre')->nullable();
-			$table->string('description')->nullable();
-			$table->decimal('tarifs')->nullable();
-			$table->bigInteger('id_user')->unsigned()->nullable();
+			$table->string('name')->nullable();
 			$table->boolean('active')->default(true);
             $table->integer('updated_by')->unsigned()->nullable();
 		});
@@ -22,6 +20,6 @@ class CreatePrestationTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('prestation');
+		Schema::drop('roles');
 	}
 }

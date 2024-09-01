@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateCategoriesTable extends Migration {
 
@@ -11,6 +12,8 @@ class CreateCategoriesTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('nom')->nullable();
+			$table->boolean('active')->default(true);
+            $table->integer('updated_by')->unsigned()->nullable();
 		});
 	}
 

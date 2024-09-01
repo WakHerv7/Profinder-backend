@@ -1,0 +1,450 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Test API",
+        "description": "test des API de Mr Kamela",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "liste utilisateurs",
+                "operationId": "c457726701591d1183b53aa71fc13441",
+                "parameters": [
+                    {
+                        "name": "search_query",
+                        "in": "query",
+                        "description": "Mot-clé de recherche pour filtrer les utilisateurs",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "liste utilisateur"
+                    },
+                    "401": {
+                        "description": "Non  autorisé"
+                    },
+                    "404": {
+                        "description": "Liste des utilisateurs introuvable"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Créer un utilisateur",
+                "operationId": "1a63883edb751cb640a2f6f516236f49",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "nom",
+                                    "prenom",
+                                    "email",
+                                    "ville",
+                                    "password",
+                                    "id_role"
+                                ],
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "ville": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "password",
+                                        "example": "P@ssw0rd123"
+                                    },
+                                    "id_role": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Enregistrement réussi"
+                    },
+                    "422": {
+                        "description": "données invalides"
+                    },
+                    "500": {
+                        "description": "Impossible de mettre à jour car ce utilisateur n 'existe pas"
+                    }
+                }
+            }
+        },
+        "/api/connexion": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "connexion de utilisateur",
+                "operationId": "1a00dac76f41b79f25e4cea80dda53dc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Connexion réussie"
+                    },
+                    "401": {
+                        "description": "Identifiants invalides"
+                    },
+                    "422": {
+                        "description": "données invalides"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "info user",
+                "description": "entrer juste ID.",
+                "operationId": "dc70afd5bb336d26dc7f108c910a3c57",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Utilisateur   \r\n *trouvé"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User non  trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Utilisateur   \r\n *non trouvé"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{id_user}": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update  user",
+                "description": "Updates  user.",
+                "operationId": "e929fe12b6119f20389b11e1100218ce",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "path",
+                        "description": "ID user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "updated_by",
+                        "in": "query",
+                        "description": "ID du user qui update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "donnée User",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "active": {
+                                        "type": "boolean"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+ 237 670875526"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "ville": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Mise à jour réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mise à jour réussie"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Impossible   \r\n *de mettre à jour car ce utilisateur n\\'existe pas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "pas autorisé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vous   \r\n *n'êtes pas autorisé à modifier cet utilisateur"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Une erreur est survenue lors de la mise à jour"
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "supprimer un utilisateur",
+                "operationId": "3c8810913ff5c1f35b095ed60be0fa89",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "path",
+                        "description": "ID of the user to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Suppression réussie"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "user not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Impossible   \r\n *de supprimer car cette entreprise n'existe pas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Une erreur est survenue lors de la suppression"
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ]
+}

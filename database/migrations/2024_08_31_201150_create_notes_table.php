@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
 
 class CreateNotesTable extends Migration {
 
@@ -15,6 +17,8 @@ class CreateNotesTable extends Migration {
 			$table->datetime('date_note')->nullable();
 			$table->bigInteger('id_prestataire')->unsigned()->nullable();
 			$table->bigInteger('id_user')->unsigned()->nullable();
+			$table->boolean('active')->default(true);
+            $table->integer('updated_by')->unsigned()->nullable();
 		});
 	}
 
